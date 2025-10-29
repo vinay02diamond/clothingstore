@@ -19,7 +19,7 @@ await connectDB()  // Establish connection to the database
 await connectCloudinary() // Set up Cloudinary for image storage
 
 // Allow multiple origins
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['https://clothing-frontend-eight.vercel.app/']
 
 app.post('/stripe', express.raw({type: 'application/json'}), stripeWebhooks)
 
