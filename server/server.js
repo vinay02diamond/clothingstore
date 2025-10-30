@@ -19,7 +19,24 @@ await connectDB()  // Establish connection to the database
 await connectCloudinary() // Set up Cloudinary for image storage
 
 // Allow multiple origins
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://clothing-frontend-eight.vercel.app'
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.post('/stripe', express.raw({type: 'application/json'}), stripeWebhooks)
 
